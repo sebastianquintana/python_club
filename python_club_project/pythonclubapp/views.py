@@ -4,4 +4,4 @@ from django.shortcuts import render
 
 # Create your views here.
 def index (request):
-    return render(request, 'pythonclubapp/index.html')
+    return render(request, 'pythonclubapp/index.htm')
