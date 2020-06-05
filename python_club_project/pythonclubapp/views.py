@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .forms import  ProductForm
 
 # Create your views here.from django.shortcuts import render
 from .models import ProductType, Product, Review
@@ -24,3 +25,15 @@ def productdetails(request, id):
         'reviews' : reviews,
     }
     return render(request, 'pythonclubapp/proddetails.htm', context=context)
+
+def newProduct(request):
+     form=ProductForm
+     if request.method=='POST':
+          form=ProductForm(request.POST)
+          if form.is_valid():
+               post=form.save(commit=True)
+               post.save()
+               form=ProductForm()
+     else:
+          form=ProductForm()
+     return render(request, 'pythonclubapp/newproduct.htm', {'form': form})    
