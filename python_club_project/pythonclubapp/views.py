@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .forms import  ProductForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.from django.shortcuts import render
 from .models import ProductType, Product, Review
@@ -37,3 +38,23 @@ def newProduct(request):
      else:
           form=ProductForm()
      return render(request, 'pythonclubapp/newproduct.htm', {'form': form})    
+
+
+def loginmessage(request):
+    return render(request, 'pythonclubapp/loginmessage.htm')
+
+def logoutmessage(request):
+    return render(request, 'pythonclubapp/logoutmessage.htm')
+
+@login_required
+def newProduct(request):
+     form=ProductForm
+     if request.method=='POST':
+          form=ProductForm(request.POST)
+          if form.is_valid():
+               post=form.save(commit=True)
+               post.save()
+               form=ProductForm()
+     else:
+          form=ProductForm()
+     return render(request, 'pythonclubapp/newproduct.htm', {'form': form})
